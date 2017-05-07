@@ -74,7 +74,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Todo List" id="FnX-l7-byy">
                         <leftBarButtonItems>
-                            <barButtonItem style="plain" id="j08-dm-4SV"/>
                             <barButtonItem style="plain" id="IdV-bB-iC5">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UeK-7X-tfQ">
                                     <rect key="frame" x="16" y="11" width="22" height="22"/>
@@ -85,6 +84,11 @@
                                         <action selector="toggleSortByComplete:" destination="Ee5-Hz-GR8" eventType="touchUpInside" id="frf-WM-ktk"/>
                                     </connections>
                                 </button>
+                            </barButtonItem>
+                            <barButtonItem title="Newer" id="w30-ag-bin">
+                                <connections>
+                                    <action selector="toggleDate:" destination="Ee5-Hz-GR8" id="eoI-Wv-zYi"/>
+                                </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
                         <rightBarButtonItems>
@@ -101,6 +105,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="dateButton" destination="w30-ag-bin" id="Njy-Vo-THg"/>
                         <outlet property="priorityBarButton" destination="6tG-MH-ruq" id="aHU-td-TkY"/>
                         <outlet property="searchBar" destination="XYa-Lf-TkJ" id="HpS-Jk-IrR"/>
                     </connections>

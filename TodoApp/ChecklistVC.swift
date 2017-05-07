@@ -13,6 +13,7 @@ class ChecklistVC: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var priorityBarButton: UIBarButtonItem!
+    @IBOutlet weak var dateButton: UIBarButtonItem!
     var checklistItems: Results<ChecklistItem>!
 
     override func viewDidLoad() {
@@ -40,6 +41,18 @@ class ChecklistVC: UITableViewController {
         }
         return checklistItems.sorted(by: [SortDescriptor(keyPath: "priority", ascending: true), SortDescriptor(keyPath: "created", ascending: false)])
     }
+    
+    @IBAction func toggleDate(_ sender: Any) {
+        if dateButton.title == "Newer" {
+            dateButton.title = "Older"
+            checklistItems = checklistItems.sorted(by: [SortDescriptor(keyPath: "created", ascending: true)])
+        } else {
+            dateButton.title = "Newer"
+            checklistItems = checklistItems.sorted(by: [SortDescriptor(keyPath: "created", ascending: false)])
+        }
+        tableView.reloadData()
+    }
+    
     
     @IBAction func togglePriority(_ sender: Any) {
         if priorityBarButton.title == "High" {
