@@ -10,18 +10,12 @@ import UIKit
 import RealmSwift
 
 class ChecklistVC: UITableViewController {
-
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     var checklistItems: Results<ChecklistItem>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        do {
-//            let realm = try Realm()
-//            checklistItems = realm.objects(ChecklistItem.self)
-//        } catch let error as NSError {
-//            print(error)
-//            showErrorAlert(title: "We experienced a problem", message: "Please try again")
-//        }
         checklistItems = sortByCompleted(completed: false)
     }
     
@@ -51,7 +45,6 @@ class ChecklistVC: UITableViewController {
     
 
 }
-
 
 //MARK: - Tableview Delegate and DataSource
 extension ChecklistVC {
@@ -89,3 +82,18 @@ extension ChecklistVC {
     }
     
 }
+
+extension ChecklistVC: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        do {
+            let realm = try Realm()
+            let predicate = NSPredicate(format: "text CONTAINS [c] %@", searchBar.text!)
+            checklistItems = realm.objects(ChecklistItem.self).filter(predicate)
+            tableView.reloadData()
+        } catch {
+            showErrorAlert(title: "We experienced a problem", message: "Please try again")
+        }
+    }
+}
+
+

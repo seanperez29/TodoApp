@@ -19,9 +19,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="XYa-Lf-TkJ">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="Ee5-Hz-GR8" id="4kd-sg-w5H"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="ChecklistItemCell" rowHeight="44" id="2Ui-TW-niI" customClass="ChecklistItemCell" customModule="TodoApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Ui-TW-niI" id="bja-bK-Pyd">
                                     <rect key="frame" x="0.0" y="0.0" width="308" height="43.5"/>
@@ -85,6 +93,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="XYa-Lf-TkJ" id="HpS-Jk-IrR"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ujb-nl-ltx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -200,7 +211,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Completed" width="338" height="304"/>
+        <image name="Completed" width="549" height="551"/>
         <image name="NotCompleted" width="549" height="551"/>
     </resources>
     <inferredMetricsTieBreakers>
