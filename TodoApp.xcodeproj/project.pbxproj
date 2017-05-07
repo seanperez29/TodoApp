@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		911B81591EBE95C300092675 /* ChecklistVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911B81581EBE95C300092675 /* ChecklistVC.swift */; };
 		911B815B1EBE962400092675 /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911B815A1EBE962400092675 /* ChecklistItem.swift */; };
+		911B815F1EBE9D2F00092675 /* ChecklistItemDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911B815E1EBE9D2F00092675 /* ChecklistItemDetailVC.swift */; };
+		911B81621EBE9F3F00092675 /* ViewControllerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911B81611EBE9F3F00092675 /* ViewControllerAlert.swift */; };
+		911B81661EBEA2D100092675 /* ChecklistItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911B81651EBEA2D100092675 /* ChecklistItemCell.swift */; };
+		911B81691EBEA41200092675 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911B81681EBEA41200092675 /* Constants.swift */; };
 		91FA09DF1EBE66B1002E0DBF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FA09DE1EBE66B1002E0DBF /* AppDelegate.swift */; };
 		91FA09E41EBE66B1002E0DBF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91FA09E21EBE66B1002E0DBF /* Main.storyboard */; };
 		91FA09E61EBE66B1002E0DBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91FA09E51EBE66B1002E0DBF /* Assets.xcassets */; };
@@ -21,6 +25,10 @@
 		854227BDDACFBD6F05F425A9 /* Pods-TodoApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodoApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TodoApp/Pods-TodoApp.release.xcconfig"; sourceTree = "<group>"; };
 		911B81581EBE95C300092675 /* ChecklistVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChecklistVC.swift; sourceTree = "<group>"; };
 		911B815A1EBE962400092675 /* ChecklistItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
+		911B815E1EBE9D2F00092675 /* ChecklistItemDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChecklistItemDetailVC.swift; sourceTree = "<group>"; };
+		911B81611EBE9F3F00092675 /* ViewControllerAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerAlert.swift; sourceTree = "<group>"; };
+		911B81651EBEA2D100092675 /* ChecklistItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChecklistItemCell.swift; sourceTree = "<group>"; };
+		911B81681EBEA41200092675 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		91FA09DB1EBE66B1002E0DBF /* TodoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91FA09DE1EBE66B1002E0DBF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91FA09E31EBE66B1002E0DBF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -59,10 +67,30 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		911B81601EBE9F2F00092675 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				911B81611EBE9F3F00092675 /* ViewControllerAlert.swift */,
+			);
+			name = Extensions;
+			path = TodoApp;
+			sourceTree = "<group>";
+		};
+		911B81671EBEA40400092675 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				911B81681EBEA41200092675 /* Constants.swift */,
+			);
+			name = Constants;
+			path = TodoApp;
+			sourceTree = "<group>";
+		};
 		91FA09D21EBE66B1002E0DBF = {
 			isa = PBXGroup;
 			children = (
 				91FA09DD1EBE66B1002E0DBF /* TodoApp */,
+				911B81671EBEA40400092675 /* Constants */,
+				911B81601EBE9F2F00092675 /* Extensions */,
 				91FA09DC1EBE66B1002E0DBF /* Products */,
 				5B98141BDA432969BD6AAFA1 /* Pods */,
 				107C828AE352594BB8E632E9 /* Frameworks */,
@@ -94,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				911B81581EBE95C300092675 /* ChecklistVC.swift */,
+				911B815E1EBE9D2F00092675 /* ChecklistItemDetailVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -111,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				911B815A1EBE962400092675 /* ChecklistItem.swift */,
+				911B81651EBEA2D100092675 /* ChecklistItemCell.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -240,8 +270,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				91FA09DF1EBE66B1002E0DBF /* AppDelegate.swift in Sources */,
+				911B81661EBEA2D100092675 /* ChecklistItemCell.swift in Sources */,
 				911B815B1EBE962400092675 /* ChecklistItem.swift in Sources */,
 				911B81591EBE95C300092675 /* ChecklistVC.swift in Sources */,
+				911B81691EBEA41200092675 /* Constants.swift in Sources */,
+				911B815F1EBE9D2F00092675 /* ChecklistItemDetailVC.swift in Sources */,
+				911B81621EBE9F3F00092675 /* ViewControllerAlert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
