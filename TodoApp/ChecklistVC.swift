@@ -12,12 +12,14 @@ import RealmSwift
 class ChecklistVC: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var priorityBarButton: UIBarButtonItem!
     var checklistItems: Results<ChecklistItem>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         checklistItems = sortByCompleted(completed: false)
         let tap = UITapGestureRecognizer(target: self, action: #selector(ChecklistVC.dismissKeyboard))
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     
@@ -39,6 +41,18 @@ class ChecklistVC: UITableViewController {
         return checklistItems.sorted(by: [SortDescriptor(keyPath: "priority", ascending: true), SortDescriptor(keyPath: "created", ascending: false)])
     }
     
+    @IBAction func togglePriority(_ sender: Any) {
+        if priorityBarButton.title == "High" {
+            priorityBarButton.title = "Low"
+            checklistItems = checklistItems.sorted(by: [SortDescriptor(keyPath: "priority", ascending: false)])
+        } else {
+            priorityBarButton.title = "High"
+            checklistItems = checklistItems.sorted(by: [SortDescriptor(keyPath: "priority", ascending: true)])
+        }
+        tableView.reloadData()
+    }
+    
+    
     @IBAction func toggleSortByComplete(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         checklistItems = sortByCompleted(completed: sender.isSelected)
@@ -47,6 +61,15 @@ class ChecklistVC: UITableViewController {
     
     func dismissKeyboard() {
         searchBar.resignFirstResponder()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "EditItem" {
+            let controller = segue.destination as! ChecklistItemDetailVC
+            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+                controller.itemToEdit = checklistItems[indexPath.row]
+            }
+        }
     }
     
 
@@ -67,6 +90,7 @@ extension ChecklistVC {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         if let cell = tableView.cellForRow(at: indexPath) as? ChecklistItemCell {
             let checklistItem = checklistItems[indexPath.row]
             cell.updateChecklistItem(!checklistItem.completed)

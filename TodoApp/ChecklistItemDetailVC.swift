@@ -14,23 +14,45 @@ class ChecklistItemDetailVC: UITableViewController {
     @IBOutlet weak var checklistItemText: UITextField!
     @IBOutlet weak var priorityControl: UISwitch!
     @IBOutlet weak var doneButton: UIBarButtonItem!
+    var itemToEdit: ChecklistItem?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if itemToEdit != nil {
+            title = "Edit Item"
+            checklistItemText.text = itemToEdit!.text
+            priorityControl.isOn = !(itemToEdit!.priority as NSNumber).boolValue
+        }
     }
 
     @IBAction func createChecklistItem(_ sender: Any) {
-        do {
-            let realm = try Realm()
-            guard let text = checklistItemText.text, text != "" else { return }
-            let checklistItem = ChecklistItem(text: text, priority: setPriority())
-            try! realm.write {
-                realm.add(checklistItem)
+        if itemToEdit == nil {
+            do {
+                let realm = try Realm()
+                guard let text = checklistItemText.text, text != "" else { return }
+                let checklistItem = ChecklistItem(text: text, priority: setPriority())
+                try! realm.write {
+                    realm.add(checklistItem)
+                }
+                navigationController?.popViewController(animated: true)
+            } catch let error as NSError {
+                print(error)
+                showErrorAlert(title: "We experienced a problem", message: "Please try again")
             }
-            navigationController?.popViewController(animated: true)
-        } catch let error as NSError {
-            print(error)
-            showErrorAlert(title: "We experienced a problem", message: "Please try again")
+        } else {
+            do {
+                let realm = try Realm()
+                guard let text = checklistItemText.text, text != "" else { return }
+                try! realm.write {
+                    itemToEdit!.text = checklistItemText.text
+                    itemToEdit!.priority = setPriority()
+                    itemToEdit!.created = Date()
+                }
+                navigationController?.popViewController(animated: true)
+            } catch {
+                print(error)
+                showErrorAlert(title: "We experienced a problem", message: "Please try again")
+            }
         }
         
     }

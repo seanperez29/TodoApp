@@ -87,13 +87,21 @@
                                 </button>
                             </barButtonItem>
                         </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="EfS-DI-LLB">
-                            <connections>
-                                <segue destination="vYw-8a-NHB" kind="show" identifier="AddItem" id="iVB-Gc-SJx"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="EfS-DI-LLB">
+                                <connections>
+                                    <segue destination="vYw-8a-NHB" kind="show" identifier="AddItem" id="iVB-Gc-SJx"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="High" id="6tG-MH-ruq">
+                                <connections>
+                                    <action selector="togglePriority:" destination="Ee5-Hz-GR8" id="Oka-ah-VjU"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="priorityBarButton" destination="6tG-MH-ruq" id="aHU-td-TkY"/>
                         <outlet property="searchBar" destination="XYa-Lf-TkJ" id="HpS-Jk-IrR"/>
                     </connections>
                 </tableViewController>
