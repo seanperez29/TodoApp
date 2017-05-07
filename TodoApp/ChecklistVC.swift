@@ -17,6 +17,8 @@ class ChecklistVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         checklistItems = sortByCompleted(completed: false)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ChecklistVC.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -27,7 +29,7 @@ class ChecklistVC: UITableViewController {
     func sortByCompleted(completed: Bool) -> Results<ChecklistItem> {
         do {
             let realm = try Realm()
-            checklistItems = realm.objects(ChecklistItem)
+            checklistItems = realm.objects(ChecklistItem.self)
             if completed {
                 checklistItems = checklistItems.filter("completed = true")
             }
@@ -41,6 +43,10 @@ class ChecklistVC: UITableViewController {
         sender.isSelected = !sender.isSelected
         checklistItems = sortByCompleted(completed: sender.isSelected)
         tableView.reloadData()
+    }
+    
+    func dismissKeyboard() {
+        searchBar.resignFirstResponder()
     }
     
 
@@ -84,7 +90,7 @@ extension ChecklistVC {
 }
 
 extension ChecklistVC: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         do {
             let realm = try Realm()
             let predicate = NSPredicate(format: "text CONTAINS [c] %@", searchBar.text!)
