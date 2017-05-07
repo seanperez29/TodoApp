@@ -30,4 +30,8 @@ class ChecklistItem: Object {
         self.text = text
         self.priority = priority
     }
+    
+    var priorityText: String {
+        return priority > 0 ? "High" : "Default"
+    }
 }

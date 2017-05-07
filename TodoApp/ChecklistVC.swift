@@ -15,14 +15,40 @@ class ChecklistVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        do {
+//            let realm = try Realm()
+//            checklistItems = realm.objects(ChecklistItem.self)
+//        } catch let error as NSError {
+//            print(error)
+//            showErrorAlert(title: "We experienced a problem", message: "Please try again")
+//        }
+        checklistItems = sortByCompleted(completed: false)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
+    func sortByCompleted(completed: Bool) -> Results<ChecklistItem> {
         do {
             let realm = try Realm()
             checklistItems = realm.objects(ChecklistItem)
-        } catch let error as NSError {
-            print(error)
+            if completed {
+                checklistItems = checklistItems.filter("completed = true")
+            }
+        } catch {
             showErrorAlert(title: "We experienced a problem", message: "Please try again")
         }
+        return checklistItems.sorted(by: [SortDescriptor(keyPath: "priority", ascending: true), SortDescriptor(keyPath: "created", ascending: false)])
     }
+    
+    @IBAction func toggleSortByComplete(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        checklistItems = sortByCompleted(completed: sender.isSelected)
+        tableView.reloadData()
+    }
+    
 
 }
 
@@ -39,6 +65,27 @@ extension ChecklistVC {
         let checklistItem = checklistItems[indexPath.row]
         cell.configureCell(checklistItem)
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? ChecklistItemCell {
+            let checklistItem = checklistItems[indexPath.row]
+            cell.updateChecklistItem(!checklistItem.completed)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            do {
+                try checklistItems.realm?.write {
+                    let checklistItem = checklistItems[indexPath.row]
+                    checklistItems.realm?.delete(checklistItem)
+                }
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            } catch {
+                showErrorAlert(title: "We experienced a problem", message: "Please try again")
+            }
+        }
     }
     
 }
